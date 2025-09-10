@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+/* Style global yang akan diterapkan ke seluruh aplikasi.
+*/
+body {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  overflow: hidden; /* Mencegah scroll yang tidak diinginkan */
+}
+
+/* Kelas untuk latar belakang gradasi animasi.
+  Kita akan gunakan kelas ini di komponen App.svelte.
+*/
+.animated-gradient {
+  background: linear-gradient(-45deg, #1d2b64, #f8cdda, #1d2b64, #f8cdda);
+  background-size: 200% 200%;
+  animation: gradientAnimation 20s ease infinite;
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
