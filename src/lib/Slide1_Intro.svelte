@@ -12,7 +12,7 @@
   // Teks yang akan muncul setelah semua intro selesai
   $: textSequence = [
     {
-      title: "Your 2025 Birthday Wrapped",
+      title: "Your Birthday Wrapped 2025",
       subtitle: "Dibuat khusus untuk kamu",
     },
     {

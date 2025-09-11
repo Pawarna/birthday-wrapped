@@ -42,11 +42,11 @@
     <!-- Info dan Kontrol Play/Pause -->
     <div class="flex items-center gap-3">
       <img
-        src="https://placehold.co/40x40/1DB954/FFFFFF?text=S"
-        alt="Spotify"
+        src="https://img.icons8.com/?size=100&id=OtuBkYEH9jp1&format=png&color=000000"
+        alt="Happy Birthday Icon"
         class="w-8 h-8 rounded-full"
       />
-      <p class="font-bold text-sm">Birthday Wrapped</p>
+      <p class="font-bold text-sm">Tania Wrapped</p>
       <button on:click={() => dispatch("toggleplay")} class="ml-2">
         {#if isPlaying}
           <!-- Pause Icon -->

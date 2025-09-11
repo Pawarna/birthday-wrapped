@@ -1,61 +1,76 @@
 <script>
   // @ts-nocheck
   import { onMount, tick } from "svelte";
-  import { fly } from "svelte/transition";
+  import { fly, fade } from "svelte/transition";
 
-  // --- KUNCI PENYIMPANAN LOKAL ---
-  // Nama unik untuk menyimpan data di localStorage
-  const storageKey = "birthdayWishesForAyang";
+  import { initializeApp } from "firebase/app";
+  import {
+    getFirestore,
+    collection,
+    addDoc,
+    onSnapshot,
+    serverTimestamp,
+    query,
+    orderBy,
+  } from "firebase/firestore";
+  import { getAuth, signInAnonymously } from "firebase/auth";
 
-  // --- STATE ---
-  // Ucapan pertama dari Anda, akan selalu ada
-  const initialWish = {
-    id: "initial-wish",
-    text: "Selamat ulang tahun ya! Semoga panjang umur dan sehat selalu ❤️",
-  };
+  import { firebaseConfig } from "../lib/firebase/config.js";
 
-  let wishes = [initialWish]; // Daftar ucapan dimulai dengan ucapan Anda
-  let newWish = ""; // Teks dari input field
-  let wishesContainer; // Referensi ke elemen kontainer ucapan
-  let isSubmitting = false; // Mencegah submit berulang
+  let wishes = [];
+  let newWish = "";
+  let wishesContainer;
+  let isSubmitting = false;
 
-  onMount(() => {
-    // Memuat ucapan yang sudah ada dari localStorage saat komponen pertama kali ditampilkan
-    const storedWishes = localStorage.getItem(storageKey);
-    if (storedWishes) {
-      // Menggabungkan ucapan awal dengan ucapan yang tersimpan
-      wishes = [initialWish, ...JSON.parse(storedWishes)];
+  onMount(async () => {
+    try {
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+      const auth = getAuth(app);
+
+      await signInAnonymously(auth);
+
+      const wishesCollectionPath = `/artifacts/default-app-id/public/data/wishes`;
+      const q = query(
+        collection(db, wishesCollectionPath),
+        orderBy("createdAt", "asc")
+      );
+
+      onSnapshot(q, (querySnapshot) => {
+        const fetchedWishes = [];
+        querySnapshot.forEach((doc) => {
+          fetchedWishes.push({ id: doc.id, ...doc.data() });
+        });
+        wishes = fetchedWishes;
+
+        tick().then(() => {
+          if (wishesContainer) {
+            wishesContainer.scrollTop = wishesContainer.scrollHeight;
+          }
+        });
+      });
+    } catch (error) {
+      console.error("Error initializing Firebase:", error);
     }
   });
 
-  // Fungsi untuk menyimpan ucapan baru
-  function handleSubmit() {
+  async function handleSubmit() {
     if (newWish.trim() === "" || isSubmitting) return;
     isSubmitting = true;
 
     try {
-      // Membuat objek ucapan baru dengan ID unik
-      const wishToAdd = { id: Date.now(), text: newWish };
+      const app = initializeApp(firebaseConfig, "submitApp");
+      const db = getFirestore(app);
+      const wishesCollectionPath = `/artifacts/default-app-id/public/data/wishes`;
 
-      // Menambahkan ucapan baru ke daftar yang tampil di layar
-      wishes = [...wishes, wishToAdd];
-
-      // Mengambil hanya ucapan dari pengguna (tanpa ucapan awal Anda) untuk disimpan
-      const wishesToStore = wishes.slice(1);
-
-      // Menyimpan daftar ucapan yang sudah diperbarui ke localStorage
-      localStorage.setItem(storageKey, JSON.stringify(wishesToStore));
-
-      newWish = ""; // Kosongkan input field
-
-      // Otomatis scroll ke bawah
-      tick().then(() => {
-        if (wishesContainer) {
-          wishesContainer.scrollTop = wishesContainer.scrollHeight;
-        }
+      await addDoc(collection(db, wishesCollectionPath), {
+        text: newWish,
+        createdAt: serverTimestamp(),
       });
+
+      newWish = "";
     } catch (error) {
-      console.error("Gagal menyimpan ucapan:", error);
+      console.error("Error adding document: ", error);
     } finally {
       isSubmitting = false;
     }
@@ -82,6 +97,11 @@
     {/each}
   </div>
 
+  <!-- 
+    PERBAIKAN: 
+    1. z-index dinaikkan menjadi z-30 agar berada di atas navigasi (z-20).
+    2. Event on:click|stopPropagation ditambahkan untuk mencegah klik "menembus" ke lapisan navigasi.
+  -->
   <div
     class="z-30 w-full h-full flex flex-col items-center text-center pt-20"
     on:click|stopPropagation

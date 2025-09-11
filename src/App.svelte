@@ -17,7 +17,7 @@
 
   // --- KONFIGURASI ---
   const birthdayPersonName = "Tania";
-  const birthdayDate = new Date(2025, 8, 11);
+  const birthdayDate = new Date(2025, 8, 1);
 
   const slides = [
     {
