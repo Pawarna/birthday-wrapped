@@ -8,6 +8,7 @@
   import Slide3_Anthem from "./lib/Slide3_Anthem.svelte";
   import Slide4_Memories from "./lib/Slide4_Memories.svelte";
   import SlideStatsYapping from "./lib/SlideStatsYapping.svelte";
+  import SlideKabar from "./lib/SlideKabar.svelte";
   import SlideFoto from "./lib/SlideFoto.svelte";
 
   import Countdown from "./lib/Countdown.svelte";
@@ -40,6 +41,10 @@
       component: SlideStatsYapping,
       music:
         "/music/Vietsub _ La La Lost You -  88rising & NIKI _ Lyrics Video-[AudioTrimmer.com].mp3",
+    },
+    {
+      component: SlideKabar,
+      music: "/music/Juicy Luicy - Lampu Kuning (Official Lyric Video).mp3",
     },
     {
       component: SlideFoto,
