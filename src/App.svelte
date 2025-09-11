@@ -9,6 +9,7 @@
   import Slide4_Memories from "./lib/Slide4_Memories.svelte";
   import SlideStatsYapping from "./lib/SlideStatsYapping.svelte";
   import SlideKabar from "./lib/SlideKabar.svelte";
+  import SlideWishes from "./lib/SlideWishes.svelte";
   import SlideFoto from "./lib/SlideFoto.svelte";
 
   import Countdown from "./lib/Countdown.svelte";
@@ -45,6 +46,10 @@
     {
       component: SlideKabar,
       music: "/music/Juicy Luicy - Lampu Kuning (Official Lyric Video).mp3",
+    },
+    {
+      component: SlideWishes,
+      music: "/music/The 1975 - About You-[AudioTrimmer.com].mp3",
     },
     {
       component: SlideFoto,
