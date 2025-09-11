@@ -16,9 +16,9 @@
       subtitle: "Dibuat khusus untuk kamu",
     },
     {
-      title: `Selamat Ulang Tahun, ${name}`,
+      title: `Selamat Ulang Tahun, ${name} 🎂`,
       subtitle:
-        "Tahun ini kita memang belum bersama, tapi akan selalu ada momen yang nggak ada duanya.",
+        "Hari ini adalah hari spesialmu, dan aku harap ini menjadi awal dari tahun yang istimewa buatmu 😊",
     },
     {
       title: "Jadi…",
@@ -118,7 +118,7 @@
             </h1>
           </div>
           <h2 class="text-wrapped" class:fade-in={introPhase === 3}>
-            Wrapped Time!
+            It's Wrapped Time!
           </h2>
         </div>
       {:else}
@@ -176,7 +176,7 @@
   }
   .block-piece {
     flex-grow: 1;
-    transition: background-color 0.5s;
+    transition: background-color: 0.5s;
   }
   .curtain-column:nth-child(even) {
     animation-name: slide-away-down;
@@ -209,6 +209,7 @@
     font-weight: 800;
     z-index: 10;
     color: white;
+    padding: 0 1rem;
   }
   .text-group {
     position: absolute;
@@ -219,8 +220,10 @@
     opacity: 0;
   }
   .text-wrapped {
+    text-align: center;
     font-size: clamp(3rem, 10vw, 6rem);
     opacity: 0;
+    /* PERBAIKAN: Properti white-space: nowrap; dihapus agar teks bisa wrapping */
   }
   .enter-right {
     animation: slideInFromRight 1.5s forwards cubic-bezier(0.2, 1, 0.3, 1);
