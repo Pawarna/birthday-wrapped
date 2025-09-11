@@ -5,7 +5,7 @@
   import { fly, fade } from "svelte/transition";
 
   // Menerima tanggal lahir dari App.svelte
-  export let dateOfBirth = new Date(2000, 0, 1);
+  export let dateOfBirth = new Date(2004, 8, 15);
 
   // --- STATE BARU UNTUK ANIMASI BERLAPIS ---
   let statPhase = 0; // 0 = Usia, 1 = Absurd, 2 = Keluar

@@ -1,15 +1,20 @@
 <script>
+  // @ts-nocheck
+
   import { onMount } from "svelte";
   // Impor komponen-komponen slide kita
   import Slide1_Intro from "./lib/Slide1_Intro.svelte";
   import Slide2_Stats from "./lib/Slide2_Stats.svelte";
   import Slide3_Anthem from "./lib/Slide3_Anthem.svelte";
   import Slide4_Memories from "./lib/Slide4_Memories.svelte";
+  import SlideStatsYapping from "./lib/SlideStatsYapping.svelte";
+  import SlideFoto from "./lib/SlideFoto.svelte";
+
   import Countdown from "./lib/Countdown.svelte";
   import ProgressBar from "./lib/ProgressBar.svelte";
 
   // --- KONFIGURASI ---
-  const birthdayPersonName = "Paw";
+  const birthdayPersonName = "Tania";
   const birthdayDate = new Date(2025, 8, 11);
 
   const slides = [
@@ -29,7 +34,17 @@
     {
       component: Slide4_Memories,
       music:
-        "/music/ytmp3free.cc_sombr-back-to-friends-youtubemp3free.org-[AudioTrimmer.com].mp3",
+        "music/ytmp3free.cc_sombr-back-to-friends-youtubemp3free.org-[AudioTrimmer.com].mp3",
+    },
+    {
+      component: SlideStatsYapping,
+      music:
+        "/music/Vietsub _ La La Lost You -  88rising & NIKI _ Lyrics Video-[AudioTrimmer.com].mp3",
+    },
+    {
+      component: SlideFoto,
+      music:
+        "/music/Pamungkas - To The Bone (Official Music Video)-[AudioTrimmer.com].mp3",
     },
   ];
   const totalSlides = slides.length;
@@ -102,6 +117,7 @@
     - 'on:ended' ditambahkan untuk memicu slide berikutnya.
     - 'on:timeupdate' dan 'on:loadedmetadata' untuk melacak progres.
   -->
+  <!-- svelte-ignore element_invalid_self_closing_tag -->
   <audio
     bind:this={audioPlayer}
     on:pause={() => (isPlaying = false)}
@@ -130,6 +146,10 @@
     </div>
   {:else}
     <div class="relative h-full w-full">
+      <!-- svelte-ignore a11y_click_events_have_key_events -->
+      <!-- svelte-ignore a11y_no_static_element_interactions -->
+      <!-- svelte-ignore a11y_no_static_element_interactions -->
+      <!-- svelte-ignore a11y_click_events_have_key_events -->
       <div
         class="absolute left-0 top-0 z-20 h-full w-1/2"
         on:click={handlePrev}
