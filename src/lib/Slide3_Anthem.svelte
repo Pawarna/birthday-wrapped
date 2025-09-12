@@ -163,7 +163,7 @@
   /* --- CSS BARU UNTUK LEADERBOARD --- */
   .move-to-top {
     /* Menggeser seluruh kontainer ke atas */
-    transform: translateY(-15%);
+    transform: translateY(-3%);
   }
 
   .leaderboard-item {

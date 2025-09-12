@@ -10,6 +10,8 @@
   import SlideStatsYapping from "./lib/SlideStatsYapping.svelte";
   import SlideKabar from "./lib/SlideKabar.svelte";
   import SlideWishes from "./lib/SlideWishes.svelte";
+  import SlideIntroVideo from "./lib/SlideIntroVideo.svelte";
+  import SlideVideo from "./lib/SlideVideo.svelte";
   import SlideFoto from "./lib/SlideFoto.svelte";
 
   import Countdown from "./lib/Countdown.svelte";
@@ -50,6 +52,14 @@
     {
       component: SlideWishes,
       music: "/music/The 1975 - About You-[AudioTrimmer.com].mp3",
+    },
+    {
+      component: SlideIntroVideo,
+      music: "/music/NIKI - Take A Chance With Me (Official Lyric Video).mp3",
+    },
+    {
+      component: SlideVideo,
+      music: "/video/video.MOV",
     },
     {
       component: SlideFoto,
@@ -156,10 +166,10 @@
     </div>
   {:else}
     <div class="relative h-full w-full">
-      <!-- svelte-ignore a11y_click_events_have_key_events -->
-      <!-- svelte-ignore a11y_no_static_element_interactions -->
-      <!-- svelte-ignore a11y_no_static_element_interactions -->
-      <!-- svelte-ignore a11y_click_events_have_key_events -->
+      svelte-ignore a11y_click_events_have_key_events svelte-ignore
+      a11y_no_static_element_interactions svelte-ignore
+      a11y_no_static_element_interactions svelte-ignore
+      a11y_click_events_have_key_events
       <div
         class="absolute left-0 top-0 z-20 h-full w-1/2"
         on:click={handlePrev}

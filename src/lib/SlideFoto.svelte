@@ -6,25 +6,25 @@
   // Rangkaian kata-kata diubah menjadi objek untuk menyimpan data transisi
   const textSequence = [
     {
-      text: "Selamat Datang Di Momen Spesialmu",
+      text: "Yah, kita sudah sampai di akhir...",
       transition: fly,
       inParams: { y: 50, duration: 1200 }, // Masuk dari bawah
       outParams: { y: -50, duration: 600 }, // Keluar ke atas
     },
     {
-      text: "Ini adalah rangkuman kenangan terbaik...",
+      text: "... semoga kamu suka ya!",
       transition: fly,
       inParams: { x: -50, duration: 1200 }, // Masuk dari kiri
       outParams: { x: 50, duration: 600 }, // Keluar ke kanan
     },
     {
-      text: "...bersama orang-orang tersayang.",
+      text: "... maaf cuman bisa ngasih ini.",
       transition: fade,
       inParams: { duration: 1200 }, // Muncul memudar
       outParams: { duration: 600 }, // Hilang memudar
     },
     {
-      text: "Siap untuk bernostalgia?",
+      text: "Sekali lagi, selamat ulang tahun ya!",
       transition: scale,
       inParams: { start: 0.5, duration: 1000 }, // Muncul membesar
       outParams: { end: 0.5, duration: 600 }, // Hilang mengecil
@@ -47,35 +47,35 @@
   // Data foto untuk latar belakang (tetap sama)
   const photos = [
     {
-      src: "https://placehold.co/400x600/FFC0CB/333?text=Ganti+Foto",
+      src: "img/1 (1).jpg",
       delay: 100,
     },
     {
-      src: "https://placehold.co/400x600/F8B400/333?text=Ganti+Foto",
+      src: "img/1 (1).webp",
       delay: 200,
     },
     {
-      src: "https://placehold.co/400x600/A2D2FF/333?text=Ganti+Foto",
+      src: "img/1 (2).webp",
       delay: 150,
     },
     {
-      src: "https://placehold.co/400x600/BDE0FE/333?text=Ganti+Foto",
+      src: "img/1 (3).webp",
       delay: 250,
     },
     {
-      src: "https://placehold.co/400x600/FFD6A5/333?text=Ganti+Foto",
+      src: "img/1 (4).webp",
       delay: 50,
     },
     {
-      src: "https://placehold.co/400x600/FFF3E2/333?text=Ganti+Foto",
+      src: "img/1 (5).webp",
       delay: 300,
     },
     {
-      src: "https://placehold.co/400x600/CDB4DB/333?text=Ganti+Foto",
+      src: "img/1 (6).webp",
       delay: 120,
     },
     {
-      src: "https://placehold.co/400x600/FFC8DD/333?text=Ganti+Foto",
+      src: "img/1 (7).webp",
       delay: 220,
     },
   ];

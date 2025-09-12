@@ -37,14 +37,14 @@
     setTimeout(() => {
       animationPhase = 3;
       mainWordCount.set(mainWordCountTarget);
-    }, 7500);
+    }, 8500);
     setTimeout(() => {
       animationPhase = 4;
-    }, 11000);
+    }, 13000);
     // Fase transisi ke leaderboard (menyembunyikan yang lama)
     setTimeout(() => {
       animationPhase = 5;
-    }, 15000);
+    }, 18000);
     // Fase keluar terakhir
     setTimeout(() => {
       animationPhase = 6;

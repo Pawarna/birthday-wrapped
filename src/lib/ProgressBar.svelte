@@ -42,11 +42,11 @@
     <!-- Info dan Kontrol Play/Pause -->
     <div class="flex items-center gap-3">
       <img
-        src="https://img.icons8.com/?size=100&id=OtuBkYEH9jp1&format=png&color=000000"
+        src="icon.jpg"
         alt="Happy Birthday Icon"
         class="w-8 h-8 rounded-full"
       />
-      <p class="font-bold text-sm">Tania Wrapped</p>
+      <p class="font-bold text-sm">Tania Birthday Wrapped</p>
       <button on:click={() => dispatch("toggleplay")} class="ml-2">
         {#if isPlaying}
           <!-- Pause Icon -->
