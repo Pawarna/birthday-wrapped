@@ -8,6 +8,7 @@
   import Slide3_Anthem from "./lib/Slide3_Anthem.svelte";
   import Slide4_Memories from "./lib/Slide4_Memories.svelte";
   import SlideStatsYapping from "./lib/SlideStatsYapping.svelte";
+  import SlideTop4 from "./lib/SlideTop4.svelte";
   import SlideKabar from "./lib/SlideKabar.svelte";
   import SlideWishes from "./lib/SlideWishes.svelte";
   import SlideIntroVideo from "./lib/SlideIntroVideo.svelte";
@@ -19,7 +20,7 @@
 
   // --- KONFIGURASI ---
   const birthdayPersonName = "Tania";
-  const birthdayDate = new Date(2025, 8, 1);
+  const birthdayDate = new Date(2025, 8, 5);
 
   const slides = [
     {
@@ -44,6 +45,10 @@
       component: SlideStatsYapping,
       music:
         "/music/Vietsub _ La La Lost You -  88rising & NIKI _ Lyrics Video-[AudioTrimmer.com].mp3",
+    },
+    {
+      component: SlideTop4,
+      music: "/music/I Wanna Be Yours-[AudioTrimmer.com].mp3",
     },
     {
       component: SlideKabar,
@@ -85,6 +90,8 @@
     today.setHours(0, 0, 0, 0);
     if (today >= birthdayDate) {
       isBirthday = true;
+      // ubah title nya
+      document.title = `Birthday Wrapped 2025 - ${birthdayPersonName}`;
     }
   });
 
