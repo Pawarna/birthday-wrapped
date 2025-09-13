@@ -3,6 +3,7 @@
 
   import { onMount } from "svelte";
   // Impor komponen-komponen slide kita
+  import StartScreen from "./lib/StartScreen.svelte";
   import Slide1_Intro from "./lib/Slide1_Intro.svelte";
   import Slide2_Stats from "./lib/Slide2_Stats.svelte";
   import Slide3_Anthem from "./lib/Slide3_Anthem.svelte";
@@ -158,12 +159,6 @@
 </script>
 
 <main class="h-screen w-screen bg-black text-white font-sans">
-  <!-- 
-    Elemen Audio Player Diperbarui:
-    - 'loop' dihapus.
-    - 'on:ended' ditambahkan untuk memicu slide berikutnya.
-    - 'on:timeupdate' dan 'on:loadedmetadata' untuk melacak progres.
-  -->
   <audio
     bind:this={audioPlayer}
     on:pause={() => (isPlaying = false)}
@@ -176,26 +171,9 @@
   {#if !isBirthday}
     <Countdown {birthdayDate} />
   {:else if !hasStarted}
-    <div
-      class="h-full w-full flex flex-col justify-center items-center text-center p-8 bg-gray-900"
-    >
-      <h1 class="text-4xl font-bold">Hari Spesial Telah Tiba</h1>
-      <p class="text-lg mt-2 text-gray-300">
-        Sebuah hadiah kecil untukmu, {birthdayPersonName}.
-      </p>
-      <button
-        on:click={startExperience}
-        class="mt-8 px-6 py-3 bg-pink-500 rounded-full font-bold hover:bg-pink-600 transition-colors"
-      >
-        Mulai Petualangan
-      </button>
-    </div>
+    <StartScreen name={birthdayPersonName} on:start={startExperience} />
   {:else}
     <div class="relative h-full w-full">
-      svelte-ignore a11y_click_events_have_key_events svelte-ignore
-      a11y_no_static_element_interactions svelte-ignore
-      a11y_no_static_element_interactions svelte-ignore
-      a11y_click_events_have_key_events
       <div
         class="absolute left-0 top-0 z-20 h-full w-1/2"
         on:click={handlePrev}
@@ -205,11 +183,6 @@
         on:click={handleNext}
       ></div>
 
-      <!-- 
-        Progress Bar Diperbarui:
-        - Tidak lagi menerima 'duration' dan 'on:next'.
-        - Menerima progres audio asli melalui 'currentTime' dan 'totalDuration'.
-      -->
       <ProgressBar
         {totalSlides}
         {currentSlide}
@@ -229,10 +202,3 @@
     </div>
   {/if}
 </main>
-
-<style>
-  :global(body) {
-    margin: 0;
-    font-family: "Inter", sans-serif;
-  }
-</style>
