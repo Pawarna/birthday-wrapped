@@ -134,10 +134,10 @@
     <!-- Formulir Input Ucapan -->
     <form
       on:submit|preventDefault={handleSubmit}
-      class="absolute left-0 bottom-0 w-full max-w-2xl mx-auto"
+      class="absolute left-0 bottom-0 w-full flex justify-center"
       in:fly={{ y: 30, duration: 1000, delay: 1200 }}
     >
-      <div class="flex gap-2">
+      <div class="w-full max-w-2xl flex gap-2">
         <input
           type="text"
           bind:value={newWish}
