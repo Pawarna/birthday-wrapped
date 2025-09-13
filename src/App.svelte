@@ -112,7 +112,7 @@
       document.title = `Birthday Wrapped 2025 - ${birthdayPersonName}`;
     }
 
-    preloadVideo("/videos/video.MOV");
+    preloadVideo("/video/video.MOV");
   });
 
   // --- FUNGSI & LOGIKA ---
