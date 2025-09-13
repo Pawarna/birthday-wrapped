@@ -7,11 +7,11 @@
 
   // --- DATA TOP 5 ---
   const top5Things = [
-    { id: 1, text: "I like Your Smile", imageUrl: "/img/nobg/4.png" },
-    { id: 2, text: "I like Your Lips", imageUrl: "/img/89.webp" },
-    { id: 3, text: "I Like Your Eyes", imageUrl: "/img/nobg/3.png" },
-    { id: 4, text: "I like Your Hands", imageUrl: "/img/nobg/1.png" },
-    { id: 5, text: "I LOVE YOU", imageUrl: "/img/nobg/5.png" },
+    { id: 5, text: "I like Your Hands", imageUrl: "/img/nobg/1.png" },
+    { id: 4, text: "I like Your Lips", imageUrl: "/img/89.webp" },
+    { id: 3, text: "I like Your Smile", imageUrl: "/img/nobg/4.png" },
+    { id: 2, text: "I Like Your Eyes", imageUrl: "/img/nobg/3.png" },
+    { id: 1, text: "YOU", imageUrl: "/img/nobg/5.png" },
   ];
 
   onMount(() => {

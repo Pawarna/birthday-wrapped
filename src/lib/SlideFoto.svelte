@@ -1,7 +1,11 @@
 <script>
+  // @ts-nocheck
   import { onMount } from "svelte";
   // Impor semua transisi yang akan kita gunakan
   import { fly, fade, scale } from "svelte/transition";
+  // --- PERUBAHAN: Impor `flip` untuk animasi perpindahan posisi ---
+  import { flip } from "svelte/animate";
+  import { cubicInOut } from "svelte/easing";
 
   // Rangkaian kata-kata diubah menjadi objek untuk menyimpan data transisi
   const textSequence = [
@@ -29,23 +33,31 @@
       inParams: { start: 0.5, duration: 1000 }, // Muncul membesar
       outParams: { end: 0.5, duration: 600 }, // Hilang mengecil
     },
+    {
+      text: "... sampai jumpa di wrapped berikutnya! 😉",
+      transition: fade,
+      inParams: { duration: 1200 }, // Muncul memudar
+      outParams: { duration: 600 }, // Hilang memudar
+    },
+    {
+      text: "💗",
+      transition: scale,
+      inParams: { start: 0.5, duration: 1000 }, // Muncul membesar
+      outParams: { end: 0.5, duration: 600 }, // Hilang mengecil
+    },
+    {
+      text: "",
+      transition: scale,
+      inParams: { start: 0.5, duration: 1000 }, // Muncul membesar
+      outParams: { end: 0.5, duration: 600 }, // Hilang mengecil
+    },
   ];
 
   // State untuk melacak indeks teks yang sedang ditampilkan
   let currentTextIndex = 0;
 
-  onMount(() => {
-    const interval = setInterval(() => {
-      currentTextIndex = (currentTextIndex + 1) % textSequence.length;
-    }, 3500);
-
-    return () => {
-      clearInterval(interval);
-    };
-  });
-
-  // Data foto untuk latar belakang (tetap sama)
-  const photos = [
+  // --- PERUBAHAN: `photos` dijadikan `let` agar bisa diubah ---
+  let photos = [
     {
       src: "img/1 (1).jpg",
       delay: 100,
@@ -79,21 +91,61 @@
       delay: 220,
     },
   ];
+
+  // --- FUNGSI BARU UNTUK MENGACAK SEBAGIAN ARRAY ---
+  function partialShufflePhotos(array) {
+    const newArray = [...array]; // Buat salinan
+    const len = newArray.length;
+
+    // Tentukan jumlah pasangan yang akan ditukar (misal: 1 sampai 3 pasang)
+    const swaps = Math.floor(Math.random() * 3) + 1;
+
+    for (let i = 0; i < swaps; i++) {
+      // Pilih dua indeks acak yang berbeda
+      let index1 = Math.floor(Math.random() * len);
+      let index2 = Math.floor(Math.random() * len);
+
+      while (index1 === index2) {
+        index2 = Math.floor(Math.random() * len);
+      }
+
+      // Tukar posisi elemen pada kedua indeks tersebut
+      [newArray[index1], newArray[index2]] = [
+        newArray[index2],
+        newArray[index1],
+      ];
+    }
+
+    return newArray;
+  }
+
+  onMount(() => {
+    const interval = setInterval(() => {
+      currentTextIndex = (currentTextIndex + 1) % textSequence.length;
+      // --- PERUBAHAN: Panggil fungsi shuffle parsial ---
+      photos = partialShufflePhotos(photos);
+    }, 3500);
+
+    return () => {
+      clearInterval(interval);
+    };
+  });
 </script>
 
 <section class="relative h-screen w-full overflow-hidden bg-gray-900">
-  <!-- 1. Latar Belakang Kolase Foto (Tetap Sama) -->
+  <!-- 1. Latar Belakang Kolase Foto -->
   <div
     class="absolute inset-0 grid grid-cols-4 grid-rows-2 gap-2 opacity-50 blur-[2px]"
   >
-    {#each photos as photo}
-      <div class="overflow-hidden">
-        <img
-          src={photo.src}
-          alt="Kenangan"
-          class="photo-tile"
-          style="animation-delay: {photo.delay}ms;"
-        />
+    <!-- 
+      Menggunakan `animate:flip` untuk animasi perpindahan.
+    -->
+    {#each photos as photo (photo.src)}
+      <div
+        class="overflow-hidden"
+        animate:flip={{ duration: 1200, easing: cubicInOut }}
+      >
+        <img src={photo.src} alt="Kenangan" class="photo-tile" />
       </div>
     {/each}
   </div>
@@ -108,10 +160,6 @@
     class="relative z-10 flex h-full flex-col items-center justify-center p-8 text-center text-white"
   >
     {#key currentTextIndex}
-      <!-- 
-        Kita mengambil data transisi dari objek `textSequence`
-        dan menerapkannya secara dinamis ke elemen h1.
-      -->
       {@const current = textSequence[currentTextIndex]}
       <h1
         class="text-5xl font-black tracking-tight text-white drop-shadow-lg md:text-7xl"
@@ -125,23 +173,10 @@
 </section>
 
 <style>
-  /* Animasi untuk foto-foto di latar belakang (Tetap Sama) */
-  @keyframes photo-reveal {
-    from {
-      transform: scale(1.2) translateY(20%);
-      opacity: 0;
-    }
-    to {
-      transform: scale(1) translateY(0);
-      opacity: 1;
-    }
-  }
-
+  /* Animasi `photo-reveal` tidak lagi diperlukan */
   .photo-tile {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0;
-    animation: photo-reveal 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
   }
 </style>

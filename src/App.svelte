@@ -13,6 +13,7 @@
   import SlideWishes from "./lib/SlideWishes.svelte";
   import SlideIntroVideo from "./lib/SlideIntroVideo.svelte";
   import SlideVideo from "./lib/SlideVideo.svelte";
+  import SlideHarapan from "./lib/SlideHarapan.svelte";
   import SlideFoto from "./lib/SlideFoto.svelte";
 
   import Countdown from "./lib/Countdown.svelte";
@@ -20,7 +21,11 @@
 
   // --- KONFIGURASI ---
   const birthdayPersonName = "Tania";
-  const birthdayDate = new Date(2025, 8, 5);
+  // Ambil tanggal ulang tahun dari environment variable (VITE_BIRTHDAY_DATE, format: YYYY-MM-DD)
+  const birthdayDateStr = import.meta.env.VITE_BIRTHDAY_DATE || "2025-09-15";
+  const [year, month, day] = birthdayDateStr.split("-").map(Number);
+  // Bulan di JS dimulai dari 0, jadi dikurangi 1
+  const birthdayDate = new Date(year, month - 1, day);
 
   const slides = [
     {
@@ -67,9 +72,13 @@
       music: "/video/video.MOV",
     },
     {
-      component: SlideFoto,
+      component: SlideHarapan,
       music:
         "/music/Pamungkas - To The Bone (Official Music Video)-[AudioTrimmer.com].mp3",
+    },
+    {
+      component: SlideFoto,
+      music: "/music/backburner-[AudioTrimmer.com].mp3",
     },
   ];
   const totalSlides = slides.length;
