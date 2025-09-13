@@ -69,7 +69,7 @@
     },
     {
       component: SlideVideo,
-      music: "/video/video.MOV",
+      music: "/video/video.mp4",
     },
     {
       component: SlideHarapan,
