@@ -26,11 +26,11 @@
       PENTING: 
       1. Ganti `src` di bawah ini dengan path ke file video Anda.
          Pastikan path ini SAMA PERSIS dengan yang di-preload di App.svelte.
-      2. Letakkan file video (misal: "ucapan.mp4") di dalam folder `public/videos/`.
+      2. Letakkan file video (misal: "ucapan.mp4") di dalam folder `public/video/`.
     -->
     <video
       bind:this={videoPlayer}
-      src="/videos/placeholder.mp4"
+      src="/video/video.mp4"
       controls
       playsinline
       preload="auto"
