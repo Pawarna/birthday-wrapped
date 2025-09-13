@@ -94,6 +94,15 @@
   let audioCurrentTime = 0;
   let audioDuration = 0;
 
+  function preloadVideo(src) {
+    // Fungsi ini membuat elemen video virtual untuk memicu download di background
+    const video = document.createElement("video");
+    video.src = src;
+    video.preload = "auto";
+    video.load();
+    console.log(`Memulai preload untuk video: ${src}`);
+  }
+
   onMount(() => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -102,6 +111,8 @@
       // ubah title nya
       document.title = `Birthday Wrapped 2025 - ${birthdayPersonName}`;
     }
+
+    preloadVideo("/videos/video.MOV");
   });
 
   // --- FUNGSI & LOGIKA ---
@@ -145,15 +156,6 @@
     if (audioPlayer) audioPlayer.pause();
   }
 </script>
-
-<svelte:head>
-  <link
-    rel="preload"
-    as="video"
-    href="/video/video.MOV"
-    type="video/quicktime"
-  />
-</svelte:head>
 
 <main class="h-screen w-screen bg-black text-white font-sans">
   <!-- 

@@ -30,6 +30,7 @@
       src="/video/video.MOV"
       controls
       playsinline
+      preload="auto"
       class="fullscreen-video"
     >
       Browser kamu tidak mendukung pemutar video ini.
