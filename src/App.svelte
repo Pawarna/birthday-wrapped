@@ -164,7 +164,6 @@
     - 'on:ended' ditambahkan untuk memicu slide berikutnya.
     - 'on:timeupdate' dan 'on:loadedmetadata' untuk melacak progres.
   -->
-  svelte-ignore element_invalid_self_closing_tag
   <audio
     bind:this={audioPlayer}
     on:pause={() => (isPlaying = false)}
