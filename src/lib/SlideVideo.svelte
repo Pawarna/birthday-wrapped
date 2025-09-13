@@ -30,7 +30,7 @@
     -->
     <video
       bind:this={videoPlayer}
-      src="/video/video.MOV"
+      src="/video/video.mp4"
       controls
       playsinline
       preload="auto"
