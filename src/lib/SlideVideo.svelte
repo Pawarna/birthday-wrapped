@@ -34,18 +34,9 @@
       controls
       playsinline
       preload="auto"
-      <!--
-      Memberi
-      tahu
-      browser
-      untuk
-      memprioritaskan
-      download
-      video
-      ini
-      --
+      class="fullscreen-video"
     >
-      class="fullscreen-video" > Browser kamu tidak mendukung pemutar video ini.
+      Browser kamu tidak mendukung pemutar video ini.
     </video>
   </div>
 </section>
