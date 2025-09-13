@@ -146,6 +146,15 @@
   }
 </script>
 
+<svelte:head>
+  <link
+    rel="preload"
+    as="video"
+    href="/video/video.MOV"
+    type="video/quicktime"
+  />
+</svelte:head>
+
 <main class="h-screen w-screen bg-black text-white font-sans">
   <!-- 
     Elemen Audio Player Diperbarui:

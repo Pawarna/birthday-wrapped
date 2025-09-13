@@ -78,7 +78,7 @@
 </script>
 
 <section
-  class="relative h-screen w-full flex flex-col justify-center items-center bg-gray-900 text-white p-4 md:p-8 overflow-hidden"
+  class="relative min-h-[100dvh] w-full flex flex-col bg-gray-900 text-white p-4 md:p-8 overflow-hidden"
 >
   <!-- Latar Belakang Animasi Kunang-kunang -->
   <div class="fireflies">
@@ -103,10 +103,10 @@
     2. Event on:click|stopPropagation ditambahkan untuk mencegah klik "menembus" ke lapisan navigasi.
   -->
   <div
-    class="z-30 w-full h-full flex flex-col items-center text-center pt-20"
+    class="z-30 w-full h-full flex flex-col items-center text-center relative flex-1"
     on:click|stopPropagation
   >
-    <div in:fly={{ y: -30, duration: 1000, delay: 500 }}>
+    <div in:fly={{ y: -30, duration: 1000, delay: 500 }} class="pt-20">
       <h2 class="text-4xl md:text-5xl font-bold">Wishes for You</h2>
       <p class="mt-2 text-lg text-gray-300">
         Tinggalkan ucapan dan doamu di sini!
@@ -116,7 +116,7 @@
     <!-- Kontainer Daftar Ucapan -->
     <div
       bind:this={wishesContainer}
-      class="wishes-list w-full max-w-2xl my-6 flex-grow bg-black/30 rounded-lg p-4 border border-white/20 overflow-y-auto"
+      class="wishes-list w-full max-w-2xl my-6 flex-grow bg-black/30 rounded-lg p-4 border border-white/20 overflow-y-auto mb-[80px]"
       in:fade={{ duration: 1000, delay: 800 }}
     >
       {#each wishes as wish, i (wish.id)}
@@ -134,7 +134,7 @@
     <!-- Formulir Input Ucapan -->
     <form
       on:submit|preventDefault={handleSubmit}
-      class="w-full max-w-2xl"
+      class="absolute left-0 bottom-0 w-full max-w-2xl mx-auto"
       in:fly={{ y: 30, duration: 1000, delay: 1200 }}
     >
       <div class="flex gap-2">
