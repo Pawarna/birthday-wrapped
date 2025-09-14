@@ -12,12 +12,52 @@
   let showConfetti = false;
   let showCurtainClose = false; // State baru untuk tirai penutup
 
+  // --- PERUBAHAN: Menambahkan referensi untuk elemen audio ---
+  let blowSound;
+  let confettiSound;
+  let backgroundMusic; // Referensi untuk musik latar
+  let hasInteracted = false; // Melacak interaksi pertama pengguna
+
+  // Fungsi untuk fade out audio dengan halus
+  function fadeOutAudio(player) {
+    if (!player) return;
+    let currentVolume = player.volume;
+    const fadeOutInterval = setInterval(() => {
+      if (currentVolume > 0.1) {
+        currentVolume -= 0.1;
+        player.volume = Math.max(0, currentVolume);
+      } else {
+        player.pause();
+        clearInterval(fadeOutInterval);
+      }
+    }, 100);
+  }
+
+  // --- FUNGSI BARU UNTUK MEMULAI AUDIO SETELAH INTERAKSI ---
+  function initiateAudio() {
+    // Fungsi ini hanya akan berjalan satu kali
+    if (hasInteracted || !backgroundMusic) return;
+    hasInteracted = true;
+
+    backgroundMusic.volume = 0.5; // Atur volume awal
+    backgroundMusic
+      .play()
+      .catch((e) => console.error("Gagal memutar musik latar:", e));
+  }
+
   // Fungsi ini akan memicu animasi dan memulai cerita
   function blowCandle() {
     if (isBlownOut) return; // Mencegah klik berulang
 
     isBlownOut = true;
     showConfetti = true;
+
+    // --- PERUBAHAN: Memutar efek suara & menghentikan musik latar ---
+    if (blowSound) blowSound.play();
+    if (confettiSound) {
+      setTimeout(() => confettiSound.play(), 500); // Suara konfeti muncul sesaat setelahnya
+    }
+    fadeOutAudio(backgroundMusic); // Hentikan musik latar secara perlahan
 
     // Setelah konfeti berjalan, mulai tutup tirai
     setTimeout(() => {
@@ -31,8 +71,14 @@
   }
 </script>
 
+<!-- 
+  PERBAIKAN: Menambahkan `on:click={initiateAudio}` di sini.
+  Saat Anda mengklik di mana pun di area ini untuk pertama kali,
+  musik latar akan mulai diputar.
+-->
 <div
   class="h-full w-full flex flex-col justify-center items-center text-center p-8 bg-gradient-to-br from-pink-900 via-purple-900 to-indigo-950 relative overflow-hidden"
+  on:click={initiateAudio}
 >
   <!-- Animasi Balon di Latar Belakang (Ditingkatkan) -->
   <div class="balloons-container" aria-hidden="true">
@@ -71,7 +117,6 @@
       </div>
       <div class="flame-wrapper" class:blown-out={isBlownOut}>
         <div class="flame"></div>
-        <div class="wick"></div>
       </div>
       <div class="candle"></div>
       <div class="cake">
@@ -123,6 +168,27 @@
       {/each}
     </div>
   {/if}
+
+  <!-- 
+    PERUBAHAN: Menambahkan elemen audio yang tersembunyi.
+    PENTING: Anda perlu menyediakan file audio ini di folder `public/sounds/`.
+  -->
+  <audio
+    bind:this={blowSound}
+    src="https://cdn.pixabay.com/audio/2025/07/28/audio_6d5510a66f.mp3"
+    preload="auto"
+  ></audio>
+  <audio
+    bind:this={confettiSound}
+    src="https://cdn.pixabay.com/audio/2024/08/31/audio_aa510c96aa.mp3"
+    preload="auto"
+  ></audio>
+  <audio
+    bind:this={backgroundMusic}
+    src="https://www.orangefreesounds.com/wp-content/uploads/2016/08/Happy-birthday-instrumental.mp3?_=1"
+    loop
+    preload="auto"
+  ></audio>
 </div>
 
 <style>
@@ -178,20 +244,12 @@
     );
     border-radius: 4px 4px 0 0;
   }
-  .wick {
-    position: absolute;
-    bottom: 150px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 3px;
-    height: 8px;
-    background: #333;
-  }
   .flame-wrapper {
     position: absolute;
     bottom: 158px;
     left: 50%;
     transform-origin: bottom center;
+    transform: translateX(-50%);
   }
   .flame {
     width: 12px;
