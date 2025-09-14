@@ -28,6 +28,15 @@
   // Bulan di JS dimulai dari 0, jadi dikurangi 1
   const birthdayDate = new Date(year, month - 1, day);
 
+  // TAMBAHKAN: Tanggal lahir asli (HARDCODE atau dari env jika ada)
+  // Ganti sesuai kebutuhan, misal: 2004-09-15
+  const birthdayPersonBirthDateStr =
+    import.meta.env.VITE_BIRTHDAY_BIRTHDATE || "2004-09-15";
+  const [byear, bmonth, bday] = birthdayPersonBirthDateStr
+    .split("-")
+    .map(Number);
+  const birthdayPersonBirthDate = new Date(byear, bmonth - 1, bday);
+
   const slides = [
     {
       component: Slide1_Intro,
@@ -208,7 +217,10 @@
         <svelte:component
           this={slides[currentSlide].component}
           name={birthdayPersonName}
-          dateOfBirth={birthdayDate}
+          dateOfBirth={// Kirim tanggal lahir asli ke Slide2_Stats, selain itu tetap kirim birthdayDate
+          slides[currentSlide].component === Slide2_Stats
+            ? birthdayPersonBirthDate
+            : birthdayDate}
         />
       </div>
     </div>

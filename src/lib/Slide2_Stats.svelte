@@ -7,6 +7,9 @@
   // Menerima tanggal lahir dari App.svelte
   export let dateOfBirth = new Date(2004, 8, 15);
 
+  // Debug: pastikan tanggal lahir benar
+  // console.log("dateOfBirth:", dateOfBirth);
+
   // --- STATE BARU UNTUK ANIMASI BERLAPIS ---
   let statPhase = 0; // 0 = Usia, 1 = Absurd, 2 = Keluar
   let showAgeStats = false;
