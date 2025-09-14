@@ -70,7 +70,7 @@
     },
     {
       component: SlideVideo,
-      music: "/video/video.mp4",
+      music: "video/video.mp4", // Video akan memiliki audionya sendiri
     },
     {
       component: SlideHarapan,
@@ -118,14 +118,26 @@
 
   // --- FUNGSI & LOGIKA ---
   function startExperience() {
+    // Memutar musik pertama kali secara langsung untuk "membuka kunci" audio di mobile
+    if (audioPlayer && slides[0].music) {
+      audioPlayer.src = slides[0].music;
+      audioPlayer
+        .play()
+        .catch((e) => console.error("Audio play failed on start:", e));
+    }
     hasStarted = true;
-    playCurrentMusic();
   }
 
   function playCurrentMusic() {
     if (audioPlayer && slides[currentSlide].music) {
-      audioPlayer.src = slides[currentSlide].music;
+      const newSrc = new URL(slides[currentSlide].music, window.location.origin)
+        .href;
+      if (audioPlayer.src !== newSrc) {
+        audioPlayer.src = slides[currentSlide].music;
+      }
       audioPlayer.play().catch((e) => console.error("Audio play failed:", e));
+    } else if (audioPlayer) {
+      audioPlayer.pause();
     }
   }
 
@@ -137,9 +149,8 @@
   function handleNext() {
     if (currentSlide < totalSlides - 1) {
       currentSlide++;
-      playCurrentMusic();
+      playCurrentMusic(); // PERBAIKAN: Memanggil fungsi pemutar musik
     } else {
-      // Opsi: tutup cerita jika sudah slide terakhir
       closeStory();
     }
   }
@@ -147,7 +158,7 @@
   function handlePrev() {
     if (currentSlide > 0) {
       currentSlide--;
-      playCurrentMusic();
+      playCurrentMusic(); // PERBAIKAN: Memanggil fungsi pemutar musik
     }
   }
 
@@ -197,8 +208,16 @@
         <svelte:component
           this={slides[currentSlide].component}
           name={birthdayPersonName}
+          dateOfBirth={birthdayDate}
         />
       </div>
     </div>
   {/if}
 </main>
+
+<style>
+  :global(body) {
+    margin: 0;
+    font-family: "Inter", sans-serif;
+  }
+</style>
